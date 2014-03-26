@@ -18,15 +18,17 @@ abstract class AbstractGame {
 	 * @param	integer	$port
 	 * @param	boolean	$udp
 	 */
-	public function __construct ($server, $port, $udp = false) {
-		if ($udp) {
-			$this->socket = fsockopen("udp://".$server, $port);
-		}
-		else {
-			$this->socket = fsockopen($server, $port);
-		}
+	public function __construct ($server, $port, $protocol) {
+		$this->socket = fsockopen($protocol."://".$server, $port);
 		
 		stream_set_blocking($this->socket, 0);
+	}
+	
+	/**
+	 * destructor
+	 */
+	public function __destruct () {
+		$this->close();
 	}
 	
 	/**

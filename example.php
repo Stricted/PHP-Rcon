@@ -4,7 +4,7 @@ require_once("games/COD4.class.php");
 $bf = new BF3("85.114.154.172", 10101);
 $players = $bf->getPlayers();
 echo $bf->getServerName()."<br />";
-echo $bf->getCurrentMap()." - ".$bf->getCurrentMode()."<br />";
+echo $bf->getMapName($bf->getCurrentMap())." - ".$bf->getModeName($bf->getCurrentMode())."<br />";
 ?>
 Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) :<br />
 <table width="100%" border="1">
@@ -40,7 +40,7 @@ Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) 
 $bf = new BF3("85.14.231.67", 47200);
 $players = $bf->getPlayers();
 echo $bf->getServerName()."<br />";
-echo $bf->getCurrentMap()." - ".$bf->getCurrentMode()."<br />";
+echo $bf->getMapName($bf->getCurrentMap())." - ".$bf->getModeName($bf->getCurrentMode())."<br />";
 ?>
 Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) :<br />
 <table width="100%" border="1">
@@ -69,19 +69,16 @@ Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) 
 		}
 	?>
 </table>
-<?php
-$bf->close();
-?>
 <br />
 <br />
 <br />
 <?php
-$bf = new COD4("94.250.207.106", 28960, true);
-$players = $bf->getPlayers();
-echo $bf->getServerName()."<br />";
-echo $bf->getMapName($bf->getCurrentMap())." - ".$bf->getModeName($bf->getCurrentMode())."<br />";
+$cod = new COD4("94.250.207.106", 28960);
+$players = $cod->getPlayers();
+echo $cod->getServerName()."<br />";
+echo $cod->getMapName($cod->getCurrentMap())." - ".$cod->getModeName($cod->getCurrentMode())."<br />";
 ?>
-Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) :<br />
+Players (<?php  echo $cod->getCurrentPlayerCount()."/".$cod->getMaxPlayers(); ?>) :<br />
 <table width="100%" border="1">
 	<tr>
 		<td width="14.29%">name</td>
@@ -98,19 +95,16 @@ Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) 
 		}
 	?>
 </table>
-<?php
-$bf->close();
-?>
 <br />
 <br />
 <br />
 <?php
-$bf = new COD4("144.76.182.172", 28993, true);
-$players = $bf->getPlayers();
-echo $bf->getServerName()."<br />";
-echo $bf->getMapName($bf->getCurrentMap())." - ".$bf->getModeName($bf->getCurrentMode())."<br />";
+$cod = new COD4("144.76.182.172", 28993);
+$players = $cod->getPlayers();
+echo $cod->getServerName()."<br />";
+echo $cod->getMapName($cod->getCurrentMap())." - ".$cod->getModeName($cod->getCurrentMode())."<br />";
 ?>
-Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) :<br />
+Players (<?php  echo $cod->getCurrentPlayerCount()."/".$cod->getMaxPlayers(); ?>) :<br />
 <table width="100%" border="1">
 	<tr>
 		<td width="14.29%">name</td>
@@ -127,6 +121,3 @@ Players (<?php  echo $bf->getCurrentPlayerCount()."/".$bf->getMaxPlayers(); ?>) 
 		}
 	?>
 </table>
-<?php
-$bf->close();
-?>

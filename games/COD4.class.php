@@ -14,6 +14,17 @@ class COD4 extends AbstractGame {
 	private $data = array();
 	
 	/**
+	 * initialize a new instance of this class
+	 *
+	 * @param	string	$server
+	 * @param	integer	$port
+	 * @param	boolean	$udp
+	 */
+	public function __construct ($server, $port) {
+		parent::__construct($server, $port, "udp");
+	}
+	
+	/**
 	 * sends a command to the gameserver
 	 *
 	 * @param	string	$string

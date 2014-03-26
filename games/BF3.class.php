@@ -8,6 +8,17 @@ require_once("games/AbstractGame.class.php");
  */
 class BF3 extends AbstractGame {
 	/**
+	 * initialize a new instance of this class
+	 *
+	 * @param	string	$server
+	 * @param	integer	$port
+	 * @param	boolean	$udp
+	 */
+	public function __construct ($server, $port) {
+		parent::__construct($server, $port, "tcp");
+	}
+	
+	/**
 	 * sends a command to the gameserver
 	 *
 	 * @param	string	$string
