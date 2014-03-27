@@ -8,6 +8,12 @@ require_once("games/AbstractGame.class.php");
  */
 class CSGO extends AbstractGame {
 	/**
+	 * variable for playerdara
+	 * @var	string
+	 */
+	private $data = '';
+	
+	/**
 	 * initialize a new instance of this class
 	 *
 	 * @param	string	$server
@@ -52,18 +58,67 @@ class CSGO extends AbstractGame {
 	 */
 	public function getPlayers() {
 		/* CS:GO Server by default returns only max players and server uptime. You have to change server cvar "host_players_show" in server.cfg to value "2" if you want to revert to old format with players list. */
-		
 		/* request challenge id */
 		$data = $this->command("\xFF\xFF\xFF\xFF\x55\xFF\xFF\xFF\xFF");
-		$data = explode("A", $data);
+		$data = substr($data, 5, 4);
 		
 		/* request player data */
-		$data = $this->command("\xFF\xFF\xFF\xFF\x55".$data[1]);
+		$this->data = $this->command("\xFF\xFF\xFF\xFF\x55".$data);
 		
-		$data = explode("\x00", str_replace("\n", "", substr($data, 6)));
+		/* parse playerdata */
+        $this->splitData('int32');
+        $this->splitData('byte');
 		
-		// TODO: extract player data
-		// print_r($data);
+        $playercount = $this->splitData('byte');
+		$players = array();
+        for($i=1; $i <= $playercount; $i++) {
+			$player = array();
+			$player["index"] = $this->splitData('byte');
+			$player["name"] = $this->splitData('string');
+			$player["score"] = $this->splitData('int32');
+			$player["time"] = date('H:i:s', round($this->splitData('float32'), 0)+82800);
+			$players[] = $player;
+        }
+
+        return $players;
+	}
+	
+	/**
+	 * split udp package
+	 *
+	 * @param	string	$type
+	 * @return	mixed
+	 */
+	protected function splitData ($type) {
+		if ($type == "byte") {
+			$a = substr($this->data, 0, 1);
+			$this->data = substr($this->data, 1);
+			return ord($a);
+		}
+		else if ($type == "int32") {
+			$a = substr($this->data, 0, 4);
+			$this->data = substr($this->data, 4);
+			$unpacked = unpack('iint', $a);
+			return $unpacked["int"];
+		}
+		else if ($type == "float32") {
+			$a = substr($this->data, 0, 4);
+			$this->data = substr($this->data, 4);
+			$unpacked = unpack('fint', $a);
+			return $unpacked["int"];
+		}
+		else if ($type == "plain") {
+			$a = substr($this->data, 0, 1);
+			$this->data = substr($this->data, 1);
+			return $a;
+		}
+		else if ($type == "string") {
+			$str = '';
+			while(($char = $this->splitData('plain')) != chr(0)) {
+				$str .= $char;
+			}
+			return $str;
+		}
 	}
 	
 	/**
