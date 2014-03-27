@@ -24,10 +24,8 @@ class CSGO extends AbstractGame {
 	 * @param	string	$string
 	 * @return	array
 	 */
-	public function command ($string) {
-
-		/* getstatus is hardcoded because we cant send other commands without a crash */
-		fputs($this->socket, "\xFF\xFF\xFF\xFF".$string."\x00");
+	public function command ($string) {		
+		fputs($this->socket, $string);
 		$data = $this->receive();
 
 		return $data;
@@ -53,14 +51,19 @@ class CSGO extends AbstractGame {
 	 * @return	array
 	 */
 	public function getPlayers() {
-		/* CS:GO Server by default returns only max players and server uptime. You have to change server cvar "host_players_show" in server.cfg to value "2" if you want to revert to old format with players list. (cant test this actually :D) */
+		/* CS:GO Server by default returns only max players and server uptime. You have to change server cvar "host_players_show" in server.cfg to value "2" if you want to revert to old format with players list. */
 		
-		/*
-		$data = $this->command("\x55");
-		$a =  explode("\x00", substr($data, 6), 3);
-		$a[2] = ord($a[2]);
-		print_r($a);
-		*/
+		/* request challenge id */
+		$data = $this->command("\xFF\xFF\xFF\xFF\x55\xFF\xFF\xFF\xFF");
+		$data = explode("A", $data);
+		
+		/* request player data */
+		$data = $this->command("\xFF\xFF\xFF\xFF\x55".$data[1]);
+		
+		$data = explode("\x00", str_replace("\n", "", substr($data, 6)));
+		
+		// TODO: extract player data
+		// print_r($data);
 	}
 	
 	/**
@@ -120,7 +123,7 @@ class CSGO extends AbstractGame {
 	 * @return	array
 	 */
 	public function getServerData () {
-		$packet = $this->command("TSource Engine Query");
+		$packet = $this->command("\xFF\xFF\xFF\xFFTSource Engine Query\x00");
 		$server = array();
 		
 		$header = substr($packet, 0, 4);
