@@ -6,6 +6,11 @@
  */
 abstract class AbstractGame {
 	/**
+	 * protocol
+	 * @var	string
+	 */
+	protected $protocol = 'tcp';
+	/**
 	 * rcon socket resource
 	 * @var	resource
 	 */
@@ -18,8 +23,8 @@ abstract class AbstractGame {
 	 * @param	integer	$port
 	 * @param	boolean	$udp
 	 */
-	public function __construct ($server, $port, $protocol) {
-		$this->socket = fsockopen($protocol."://".$server, $port);
+	public function __construct ($server, $port) {
+		$this->socket = fsockopen($this->protocol."://".$server, $port);
 		
 		stream_set_blocking($this->socket, 0);
 	}
@@ -37,7 +42,12 @@ abstract class AbstractGame {
 	 * @param	string	$string
 	 * @return	array
 	 */
-	abstract public function command($string);
+	public function command ($string) {
+		fputs($this->socket, $string);
+		$data = $this->receive();
+		
+		return $data;
+	}
 	
 	/**
 	 * close the connection to the server

@@ -2,43 +2,24 @@
 require_once("games/AbstractGame.class.php");
 
 /**
+ * Call of Duty 4: Modern Warfare 
+ *
  * @author      Jan Altensen (Stricted)
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
 class COD4 extends AbstractGame {
 	/**
+	 * protocol
+	 * @var	string
+	 */
+	protected $protocol = 'udp';
+	
+	/**
 	 * server data cache (workaround for cod4)
 	 * @var	array
 	 */
 	private $data = array();
-	
-	/**
-	 * initialize a new instance of this class
-	 *
-	 * @param	string	$server
-	 * @param	integer	$port
-	 * @param	boolean	$udp
-	 */
-	public function __construct ($server, $port) {
-		parent::__construct($server, $port, "udp");
-	}
-	
-	/**
-	 * sends a command to the gameserver
-	 *
-	 * @param	string	$string
-	 * @return	array
-	 */
-	public function command ($string) {
-		if (empty($this->data)) {
-			/* getstatus is hardcoded because we cant send other commands without a crash */
-			fputs($this->socket, "\xFF\xFF\xFF\xFFgetstatus\x00");
-			$this->data = $this->receive();
-		}
-		
-		return $this->data;
-	}
 	
 	/**
 	 * recive data from gameserver
@@ -60,8 +41,10 @@ class COD4 extends AbstractGame {
 	 * @return	array
 	 */
 	public function getPlayers () {
-		$data = $this->command('getstatus');
-		
+		if (empty($this->data)) {
+			$this->data = $this->command("\xFF\xFF\xFF\xFFgetstatus\x00");
+		}
+		$data = $this->data;
 		$players = array();
 		for ($i=2; $i<=count($data); $i++) {
 			if (!empty($data[$i])) {
@@ -128,67 +111,6 @@ class COD4 extends AbstractGame {
 	}
 	
 	/**
-	 * translate mode code to mode name
-	 *
-	 * @param	string	$id
-	 * @return	string
-	 */
-	public function getModeName ($id) {
-		$modes = array(
-				"sd" => "Search &amp; Destroy", 
-				"dm" => "Free For All DM",
-				"dom" => "Domination",
-				"koth" => "Headquarters",
-				"sab" => "Sabotage",
-				"war" => "Team Deathmatch"
-				);
-		
-		if (array_key_exists($id, $modes)) {
-			return $modes[$id];
-		}
-		
-		return $id;
-	}
-	
-	/**
-	 * translate map code to map name
-	 *
-	 * @param	string	$id
-	 * @return	string
-	 */
-	public function getMapName ($id) {
-		$maps = array(
-				"mp_convoy" => "Ambush",
-				"mp_backlot" => "Backlot",
-				"mp_bloc" => "Bloc",
-				"mp_bog" => "Bog",
-				"mp_cargoship" => "WetWork",
-				"mp_citystreets" => "District",
-				"mp_countdown" => "Countdown",
-				"mp_crash" => "Crash",
-				"mp_crossfire" => "Crossfire",
-				"mp_farm" => "Downpour",
-				"mp_overgrown" => "Overgrown",
-				"mp_pipeline" => "Pipeline",
-				"mp_shipment" => "Shipment",
-				"mp_showdown" => "Showdown",
-				"mp_strike" => "Strike",
-				"mp_vacant" => "Vacant",
-				"mp_crash_snow" => "Crash SNOW",
-				"mp_broadcast" => "Broadcast ",
-				"mp_carentan" => "Chinatown ",
-				"mp_creek" => "Creek ",
-				"mp_killhouse" => "Killhouse"
-				);
-		
-		if (array_key_exists($id, $maps)) {
-			return $maps[$id];
-		}
-		
-		return $id;
-	}
-	
-	/**
 	 * replace cod4 color codes
 	 *
 	 * @param	string	$string
@@ -215,7 +137,10 @@ class COD4 extends AbstractGame {
 	 * @return	array
 	 */
 	protected function getServerData () {
-		$data = $this->command('getstatus');
+		if (empty($this->data)) {
+			$this->data = $this->command("\xFF\xFF\xFF\xFFgetstatus\x00");
+		}
+		$data = $this->data;
 		$tmp = explode('\\', $data[1]);
 		$ret = array();
 		foreach ($tmp as $i => $v) {

@@ -2,41 +2,25 @@
 require_once("games/AbstractGame.class.php");
 
 /**
+ * Counter-Strike: Global Offensive
+ *
  * @author      Jan Altensen (Stricted)
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
 class CSGO extends AbstractGame {
 	/**
-	 * variable for playerdara
+	 * protocol
+	 * @var	string
+	 */
+	protected $protocol = 'udp';
+	
+	/**
+	 * variable for playerdata
 	 * @var	string
 	 */
 	private $data = '';
-	
-	/**
-	 * initialize a new instance of this class
-	 *
-	 * @param	string	$server
-	 * @param	integer	$port
-	 * @param	boolean	$udp
-	 */
-	public function __construct ($server, $port) {
-		parent::__construct($server, $port, "udp");
-	}
-	
-	/**
-	 * sends a command to the gameserver
-	 *
-	 * @param	string	$string
-	 * @return	array
-	 */
-	public function command ($string) {		
-		fputs($this->socket, $string);
-		$data = $this->receive();
-
-		return $data;
-	}
-	
+		
 	/**
 	 * recive data from gameserver
 	 *
@@ -61,26 +45,26 @@ class CSGO extends AbstractGame {
 		/* request challenge id */
 		$data = $this->command("\xFF\xFF\xFF\xFF\x55\xFF\xFF\xFF\xFF");
 		$data = substr($data, 5, 4);
-		
+
 		/* request player data */
 		$this->data = $this->command("\xFF\xFF\xFF\xFF\x55".$data);
-		
+
 		/* parse playerdata */
-        $this->splitData('int32');
-        $this->splitData('byte');
-		
-        $playercount = $this->splitData('byte');
+		$this->splitData('int32');
+		$this->splitData('byte');
+
+		$count = $this->splitData('byte');
 		$players = array();
-        for($i=1; $i <= $playercount; $i++) {
+		for($i=1; $i <= $count; $i++) {
 			$player = array();
 			$player["index"] = $this->splitData('byte');
 			$player["name"] = $this->splitData('string');
 			$player["score"] = $this->splitData('int32');
 			$player["time"] = date('H:i:s', round($this->splitData('float32'), 0)+82800);
 			$players[] = $player;
-        }
+		}
 
-        return $players;
+		return $players;
 	}
 	
 	/**
