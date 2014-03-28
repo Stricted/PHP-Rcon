@@ -21,14 +21,14 @@ class BF3 extends AbstractGame {
 		if ($response[0] == 'OK') {
 			for ($i = 11; $i < count($response); $i += 8) {
 				$player = array();
-				$player[$response[2]] = $response[$i];
-				/*$player[$response[3]] = $response[$i+1]; GUID is empty, because we are not logged in */
-				$player[$response[4]] = $response[$i+2];
-				$player[$response[5]] = $response[$i+3];
-				$player[$response[6]] = $response[$i+4];
-				$player[$response[7]] = $response[$i+5];
-				$player[$response[8]] = $response[$i+6];
-				$player[$response[9]] = $response[$i+7];
+				$player['name'] = $response[$i];
+				$player['guid'] = $response[$i+1];/* GUID is empty, because we are not logged in */
+				$player['teamId'] = $response[$i+2];
+				$player['squadId'] = $response[$i+3];
+				$player['kills'] = $response[$i+4];
+				$player['deaths'] = $response[$i+5];
+				$player['score'] = $response[$i+6];
+				$player['rank'] = $response[$i+7];
 					
 				$players[] = $player;
 			}
@@ -120,13 +120,31 @@ class BF3 extends AbstractGame {
 	protected function receive () {
 		$receiveBuffer = '';	
 		while (!$this->containsCompletePacket($receiveBuffer)) {
-			$receiveBuffer = fread($this->socket, 4096);
+			$receiveBuffer .= fread($this->socket, 4096);
 		}
 		
 		$packetSize = $this->decodeInt32(mb_substr($receiveBuffer, 4, 4));
 		$packet = mb_substr($receiveBuffer, 0, $packetSize);
 		
 		return $this->decodePacket($packet);
+	}
+	
+	/**
+	 * check if the read package is complete
+	 *
+	 * @param	string	$data
+	 * @return	boolean
+	 */
+	protected function containsCompletePacket($data) {
+		if (empty($data)) {
+			return false;
+		}
+		
+		if (mb_strlen($data) < $this->decodeInt32(mb_substr($data, 4, 4))) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
