@@ -8,5 +8,5 @@ require_once("games/COD4.class.php");
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class CODWAW extends COD4 {
+class COD5 extends COD4 {
 }
