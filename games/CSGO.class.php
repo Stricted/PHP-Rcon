@@ -143,7 +143,10 @@ class CSGO extends AbstractGame {
 	 *
 	 * @return	string
 	 */
-	public function getCurrentMode() { /* not available */ }
+	public function getCurrentMode() {
+		/* not available */
+		return '';
+	}
 	
 	/**
 	 * get server name from gameserver
@@ -179,8 +182,8 @@ class CSGO extends AbstractGame {
 		$server['players'] = ord(substr($packet, 2, 1));
 		$server['playersmax'] = ord(substr($packet, 3, 1));
 		$server['bots'] = ord(substr($packet, 4, 1));
-		$server['dedicated'] = substr($packet, 5, 1);
-		$server['os'] = substr($packet, 6, 1);
+		$server['dedicated'] = (substr($packet, 5, 1) == 'd' ? true : false);
+		$server['os'] = (substr($packet, 6, 1) == "l" ? "Linux" : "Windows");
 		$server['password'] = ord(substr($packet, 7, 1));
 		$server['vac'] = ord(substr($packet, 8, 1));
 		
