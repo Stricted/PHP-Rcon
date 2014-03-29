@@ -38,4 +38,42 @@ class BF4 extends BF3 {
 		
 		return $players;
 	}
+	
+	/**
+	 * translate map code to map name
+	 *
+	 * @param	string	$id
+	 * @return	string
+	 */
+	public function getMapName ($id) {
+		$maps = array(
+				/* Default Maps */
+				"MP_Abandoned" => "Zavod 311",
+				"MP_Damage" => "Lancang Dam",
+				"MP_Flooded" => "Flood Zone",
+				"MP_Journey" => "Golmud Railway",
+				"MP_Naval" => "Paracel Storm",
+				"MP_Prison" => "Operation Locker",
+				"MP_Resort" => "Hainan Resort",
+				"MP_Siege" => "Siege of Shanghai",
+				"MP_TheDish" => "Rogue Transmission",
+				"MP_Tremors" => "Dawnbreaker",
+				/* China Rising */
+				"XP1_001" => "Silk Road",
+				"XP1_002" => "Altai Range",
+				"XP1_003" => "Guilin Peaks",
+				"XP1_004" => "Dragon Pass",
+				/* Second Assault */
+				"XP0_Caspian" => "Caspian Border 2014",
+				"XP0_Firestorm" => "Operation Firestorm 2014",
+				"XP0_Metro" => "Operation Metro 2014",
+				"XP0_Oman" => "Gulf of Oman 2014"
+				);
+		
+		if (array_key_exists($id, $maps)) {
+			return $maps[$id];
+		}
+		
+		return $id;
+	}
 }

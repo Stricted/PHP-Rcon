@@ -123,4 +123,12 @@ abstract class AbstractGame {
 	 * @return	string
 	 */
 	abstract public function getServerName();
+	
+	/**
+	 * translate map code to map name
+	 *
+	 * @param	string	$id
+	 * @return	string
+	 */
+	abstract public function getMapName($id);
 }
