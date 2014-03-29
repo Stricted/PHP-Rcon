@@ -130,5 +130,7 @@ abstract class AbstractGame {
 	 * @param	string	$id
 	 * @return	string
 	 */
-	abstract public function getMapName($id);
+	public function getMapName ($id) {
+		return $id;
+	}
 }

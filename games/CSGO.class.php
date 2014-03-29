@@ -157,46 +157,6 @@ class CSGO extends AbstractGame {
 	}
 	
 	/**
-	 * translate map code to map name
-	 *
-	 * @param	string	$id
-	 * @return	string
-	 */
-	public function getMapName ($id) {
-		$maps = array(
-				/*
-				TODO:
-				"cs_office" => "",
-				"cs_italy" => "",
-				"de_dust2" => "",
-				"de_train" => "",
-				"de_inferno" => "",
-				"de_dust" => "",
-				"de_aztec" => "",
-				"de_nuke" => "",
-				"ar_shoots" => "",
-				"ar_baggage" => "",
-				"de_lake" => "",
-				"de_stmarc" => "",
-				"de_sugarcane" => "",
-				"de_bank" => "",
-				"de_safehouse" => "",
-				"de_shorttrain" => "",
-				"cs_italy" => "",
-				"cs_office" => ""
-				
-				maybe more?
-				*/
-				);
-		
-		if (array_key_exists($id, $maps)) {
-			return $maps[$id];
-		}
-		
-		return $id;
-	}
-	
-	/**
 	 * get server data
 	 *
 	 * @return	array
