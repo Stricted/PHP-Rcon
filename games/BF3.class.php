@@ -43,7 +43,7 @@ class BF3 extends AbstractGame {
 	 * @return	integer
 	 */
 	public function getMaxPlayers () {
-		$response = $this->encodeClientRequest('serverinfo');
+		$response = $this->encodeClientRequest('serverInfo');
 		if ($response[0] == 'OK') {
 			return $response[3];
 		}
@@ -58,7 +58,7 @@ class BF3 extends AbstractGame {
 	 * @return	integer
 	 */
 	public function getCurrentPlayerCount () {
-		$response = $this->encodeClientRequest('serverinfo');
+		$response = $this->encodeClientRequest('serverInfo');
 		if ($response[0] == 'OK') {
 			return $response[2];
 		}
@@ -73,7 +73,7 @@ class BF3 extends AbstractGame {
 	 * @return	string
 	 */
 	public function getCurrentMap () {
-		$response = $this->encodeClientRequest('serverinfo');
+		$response = $this->encodeClientRequest('serverInfo');
 		if ($response[0] == 'OK') {
 			return $response[5];
 		}
@@ -88,7 +88,7 @@ class BF3 extends AbstractGame {
 	 * @return	string
 	 */
 	public function getCurrentMode () {
-		$response = $this->encodeClientRequest('serverinfo');
+		$response = $this->encodeClientRequest('serverInfo');
 		if ($response[0] == 'OK') {
 			return $response[4];
 		}
@@ -103,7 +103,7 @@ class BF3 extends AbstractGame {
 	 * @return	string
 	 */
 	public function getServerName () {
-		$response = $this->encodeClientRequest('serverinfo');
+		$response = $this->encodeClientRequest('serverInfo');
 		if ($response[0] == 'OK') {
 			return $response[1];
 		}
