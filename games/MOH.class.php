@@ -1,5 +1,5 @@
 <?php
-require_once("games/BF3.class.php");
+require_once("games/engine/FrostbiteEngine.class.php");
 
 /**
  * Medal of Honor
@@ -8,7 +8,7 @@ require_once("games/BF3.class.php");
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class MOH extends BF3 {
+class MOH extends FrostbiteEngine {
 	/**
 	 * get players from gameserver
 	 *
@@ -35,6 +35,81 @@ class MOH extends BF3 {
 		}
 		
 		return $players;
+	}
+	
+	/**
+	 * get maxplayers from gameserver
+	 *
+	 * @return	integer
+	 */
+	public function getMaxPlayers () {
+		$response = $this->encodeClientRequest('serverInfo');
+		if ($response[0] == 'OK') {
+			return $response[3];
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * get player count from server
+	 *
+	 * @return	integer
+	 */
+	public function getCurrentPlayerCount () {
+		$response = $this->encodeClientRequest('serverInfo');
+		if ($response[0] == 'OK') {
+			return $response[2];
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * get current map from gameserver
+	 *
+	 * @return	string
+	 */
+	public function getCurrentMap () {
+		$response = $this->encodeClientRequest('serverInfo');
+		if ($response[0] == 'OK') {
+			return $response[5];
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * get current game mode from gameserver
+	 *
+	 * @return	string
+	 */
+	public function getCurrentMode () {
+		$response = $this->encodeClientRequest('serverInfo');
+		if ($response[0] == 'OK') {
+			return $response[4];
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * get server name from gameserver
+	 *
+	 * @return	string
+	 */
+	public function getServerName () {
+		$response = $this->encodeClientRequest('serverInfo');
+		if ($response[0] == 'OK') {
+			return $response[1];
+		}
+		else {
+			return false;
+		}
 	}
 	
 	/**

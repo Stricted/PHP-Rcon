@@ -1,5 +1,5 @@
 <?php
-require_once("games/AbstractGame.class.php");
+require_once("games/engine/Quake3Engine.class.php");
 
 /**
  * Call of Duty 4: Modern Warfare 
@@ -8,33 +8,7 @@ require_once("games/AbstractGame.class.php");
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class COD4 extends AbstractGame {
-	/**
-	 * protocol
-	 * @var	string
-	 */
-	protected $protocol = 'udp';
-	
-	/**
-	 * server data cache (workaround for cod4)
-	 * @var	array
-	 */
-	private $data = array();
-	
-	/**
-	 * recive data from gameserver
-	 *
-	 * @return	string
-	 */
-	protected function receive () {
-		$data = '';
-		while (!$this->containsCompletePacket($data)) {
-			$data .= fread($this->socket, 8192);
-		}
-		return explode("\n", $data);
-		
-	}
-		
+class COD4 extends Quake3Engine {
 	/**
 	 * get players from gameserver
 	 *
@@ -111,27 +85,6 @@ class COD4 extends AbstractGame {
 	}
 	
 	/**
-	 * replace cod4 color codes
-	 *
-	 * @param	string	$string
-	 * @return	string
-	 */
-	protected function stripColors ($string) {
-		$string = str_replace('^0', '', $string);
-		$string = str_replace('^1', '', $string);
-		$string = str_replace('^2', '', $string);
-		$string = str_replace('^3', '', $string);
-		$string = str_replace('^4', '', $string);
-		$string = str_replace('^5', '', $string);
-		$string = str_replace('^6', '', $string);
-		$string = str_replace('^7', '', $string);
-		$string = str_replace('^8', '', $string);
-		$string = str_replace('^9', '', $string);
-		
-		return $string;
-	}
-	
-	/**
 	 * translate map code to map name
 	 *
 	 * @param	string	$id
@@ -167,27 +120,5 @@ class COD4 extends AbstractGame {
 		}
 		
 		return $id;
-	}
-	
-	/**
-	 * get server data
-	 *
-	 * @return	array
-	 */
-	protected function getServerData () {
-		if (empty($this->data)) {
-			$this->data = $this->command("\xFF\xFF\xFF\xFFgetstatus\x00");
-		}
-		$data = $this->data;
-		$tmp = explode('\\', $data[1]);
-		$ret = array();
-		foreach ($tmp as $i => $v) {
-			if (fmod($i, 2) == 1) {
-				$t = $i + 1;
-				
-				$ret[$v] = $tmp[$t];
-			}
-		}
-		return $ret;
 	}
 }

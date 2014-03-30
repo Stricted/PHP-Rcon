@@ -1,5 +1,5 @@
 <?php
-require_once("games/AbstractGame.class.php");
+require_once("games/engine/GamespyEngine.class.php");
 
 /**
  * Medal of Honor Breakthrough
@@ -8,33 +8,7 @@ require_once("games/AbstractGame.class.php");
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class MOHBT extends AbstractGame {
-	/**
-	 * protocol
-	 * @var	string
-	 */
-	protected $protocol = 'udp';
-	
-	/**
-	 * server data cache (workaround for cod4)
-	 * @var	array
-	 */
-	private $data = array();
-	
-	/**
-	 * recive data from gameserver
-	 *
-	 * @return	string
-	 */
-	protected function receive () {
-		$data = '';
-		while (!$this->containsCompletePacket($data)) {
-			$data .= fread($this->socket, 8192);
-		}
-		return $data;
-		
-	}
-		
+class MOHBT extends GamespyEngine {
 	/**
 	 * get players from gameserver
 	 *
@@ -110,28 +84,5 @@ class MOHBT extends AbstractGame {
 	public function getServerName () {
 		$data = $this->getServerData();
 		return $data['hostname'];
-	}
-	
-	/**
-	 * get server data
-	 *
-	 * @return	array
-	 */
-	protected function getServerData () {
-		if (empty($this->data)) {
-			$this->data = $this->command("\\status\\");
-		}
-		
-		$tmp = explode('\\', $this->data);
-		$ret = array();
-		foreach ($tmp as $i => $v) {
-			if (fmod($i, 2) == 1) {
-				$t = $i + 1;
-				
-				$ret[$v] = $tmp[$t];
-			}
-		}
-		
-		return $ret;
 	}
 }
