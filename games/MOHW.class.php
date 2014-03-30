@@ -110,32 +110,4 @@ class MOHW extends FrostbiteEngine {
 			return false;
 		}
 	}
-	
-	/**
-	 * translate map code to map name
-	 *
-	 * @param	string	$id
-	 * @return	string
-	 */
-	public function getMapName ($id) {
-		$id = str_replace("levels/", "", $id);
-		$maps = array(
-				"MP_03" => "Somalia Stronghold",
-				"MP_05" => "Novi Grad Warzone",
-				"MP_10" => "Sarajevo Stadium",
-				"MP_12" => "Basilan Aftermatch",
-				"MP_13" => "Hara Dunes",
-				"MP_16" => "Al Fara Cliffside",
-				"MP_18" => "Shogore Valley",
-				"MP_19" => "Tungunan Jungle",
-				"MP_20" => "Darra Gun Market",
-				"MP_21" => "Chitrail Compound"
-				);
-		
-		if (array_key_exists($id, $maps)) {
-			return $maps[$id];
-		}
-		
-		return $id;
-	}
 }

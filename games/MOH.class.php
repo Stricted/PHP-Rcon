@@ -111,40 +111,4 @@ class MOH extends FrostbiteEngine {
 			return false;
 		}
 	}
-	
-	/**
-	 * translate map code to map name
-	 *
-	 * @param	string	$id
-	 * @return	string
-	 */
-	public function getMapName ($id) {
-		$id = str_replace("levels/", "", $id);
-		$maps = array(
-				"mp_01" => "Mazar-i-Sharif Airfield",
-				"mp_02" => "Shah-i-Khot",
-				"mp_04" => "Helmand Valley",
-				"mp_05_domination" => "Kandahar Marketplace",
-				"mp_05_overrun" => "Kandahar Marketplace",
-				"mp_05_tdm" => "Kandahar Marketplace",
-				"mp_06_domination" => "Diwagal Camp",
-				"mp_06_overrun" => "Diwagal Camp",
-				"mp_06_tdm" => "Diwagal Camp",
-				"mp_08_domination" => "Kunar Base",
-				"mp_08_overrun" => "Kunar Base",
-				"mp_08_tdm" => "Kunar Base",
-				"mp_09_domination" => "Kabul City Ruins",
-				"mp_09_overrun" => "Kabul City Ruins",
-				"mp_09_tdm" => "Kabul City Ruins",
-				"mp_10_domination" => "Garmzir Town",
-				"mp_10_overrun" => "Garmzir Town",
-				"mp_10_tdm" => "Garmzir Town"
-				);
-		
-		if (array_key_exists($id, $maps)) {
-			return $maps[$id];
-		}
-		
-		return $id;
-	}
 }

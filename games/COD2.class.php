@@ -83,42 +83,4 @@ class COD2 extends Quake3Engine {
 		$data = $this->getServerData();
 		return $this->stripColors($data['sv_hostname']);
 	}
-	
-	/**
-	 * translate map code to map name
-	 *
-	 * @param	string	$id
-	 * @return	string
-	 */
-	public function getMapName ($id) {
-		$maps = array(
-				"mp_convoy" => "Ambush",
-				"mp_backlot" => "Backlot",
-				"mp_bloc" => "Bloc",
-				"mp_bog" => "Bog",
-				"mp_cargoship" => "WetWork",
-				"mp_citystreets" => "District",
-				"mp_countdown" => "Countdown",
-				"mp_crash" => "Crash",
-				"mp_crossfire" => "Crossfire",
-				"mp_farm" => "Downpour",
-				"mp_overgrown" => "Overgrown",
-				"mp_pipeline" => "Pipeline",
-				"mp_shipment" => "Shipment",
-				"mp_showdown" => "Showdown",
-				"mp_strike" => "Strike",
-				"mp_vacant" => "Vacant",
-				"mp_crash_snow" => "Crash SNOW",
-				"mp_broadcast" => "Broadcast ",
-				"mp_carentan" => "Chinatown ",
-				"mp_creek" => "Creek ",
-				"mp_killhouse" => "Killhouse"
-				);
-		
-		if (array_key_exists($id, $maps)) {
-			return $maps[$id];
-		}
-		
-		return $id;
-	}
 }

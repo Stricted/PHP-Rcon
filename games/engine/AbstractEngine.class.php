@@ -127,17 +127,6 @@ abstract class AbstractEngine {
 	abstract public function getServerName();
 	
 	/**
-	 * translate map code to map name
-	 *
-	 * @param	string	$id
-	 * @return	string
-	 */
-	public function getMapName ($id) {
-		return $id;
-	}
-	
-	
-	/**
 	 * replace cod4 color codes
 	 *
 	 * @param	string	$string
