@@ -32,7 +32,7 @@ class CODMW3 extends SourceEngine {
 		for($i=1; $i <= $count; $i++) {
 			$player = array();
 			$player["index"] = $this->splitData('byte');
-			$player["name"] = $this->splitData('string');
+			$player["name"] = $this->stripColors($this->splitData('string'));
 			$player["score"] = $this->splitData('int32');
 			$player["time"] = date('H:i:s', round($this->splitData('float32'), 0)+82800);
 			$players[] = $player;
@@ -92,6 +92,6 @@ class CODMW3 extends SourceEngine {
 	public function getServerName() {
 		$data = $this->getServerData();
 		
-		return $data['name'];
+		return $this->stripColors($data['name']);
 	}
 }
