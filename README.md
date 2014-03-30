@@ -17,3 +17,5 @@
 | Counter-Strike 1.6               | Source        |
 | Call of Duty : Modern Warfare 3  | Source        |
 | 7 (Seven) Days to Die            | Source        |
+| Left 4 Dead                      | Source        |
+| Left 4 Dead 2                    | Source        |
