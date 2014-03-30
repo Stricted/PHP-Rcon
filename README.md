@@ -5,6 +5,9 @@
 | Battlefield 4                    | Frostbite     |
 | Medal of Honor                   | Frostbite     |
 | Medal of Honor Warfighter        | Frostbite     |
+| Call of Duty                     | Quake3        |
+| Call of Duty 2                   | Quake3        |
+| Call of Duty: United Offensive   | Quake3        |
 | Call of Duty 4: Modern Warfare   | Quake3        |
 | Call of Duty 5: World at War     | Quake3        |
 | Quake 3                          | Quake3        |
@@ -39,5 +42,5 @@
 | Team Fortress 2                  | Source        |
 | Team Fortress Classic            | Source        |
 | Zombie Master                    | Source        |
-| Zombie Master                    | Source        |
+| Zombie Panic Source              | Source        |
 | Brink                            | Source        |
