@@ -39,4 +39,5 @@
 | Team Fortress 2                  | Source        |
 | Team Fortress Classic            | Source        |
 | Zombie Master                    | Source        |
-| Zombie Panic Source              | Source        |
+| Zombie Master                    | Source        |
+| Brink                            | Source        |

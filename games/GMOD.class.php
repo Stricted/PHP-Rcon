@@ -8,7 +8,7 @@ require_once("games/engine/SourceEngine.class.php");
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class GMOD extends SourceEngine {
+class GMod extends SourceEngine {
 	/**
 	 * get players from gameserver
 	 *

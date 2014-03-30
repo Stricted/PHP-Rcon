@@ -2,13 +2,13 @@
 require_once("games/engine/SourceEngine.class.php");
 
 /**
- * Homefront
+ * Brink
  *
  * @author      Jan Altensen (Stricted)
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class HOMEFRONT extends SourceEngine {
+class Brink extends SourceEngine {
 	/**
 	 * get players from gameserver
 	 *

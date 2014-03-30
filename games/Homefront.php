@@ -2,13 +2,13 @@
 require_once("games/engine/SourceEngine.class.php");
 
 /**
- * Rust
+ * Homefront
  *
  * @author      Jan Altensen (Stricted)
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class Rust extends SourceEngine {
+class Homefront extends SourceEngine {
 	/**
 	 * get players from gameserver
 	 *
