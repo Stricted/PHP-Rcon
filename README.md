@@ -19,3 +19,5 @@
 | 7 (Seven) Days to Die            | Source        |
 | Left 4 Dead                      | Source        |
 | Left 4 Dead 2                    | Source        |
+| DayZ                             | Source        |
+| Rust                             | Source        |
