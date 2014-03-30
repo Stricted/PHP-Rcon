@@ -21,3 +21,22 @@
 | Left 4 Dead 2                    | Source        |
 | DayZ                             | Source        |
 | Rust                             | Source        |
+| America's Army 3                 | Source        |
+| Alien Swarm                      | Source        |
+| Age of Chivalry                  | Source        |
+| Day of Defeat                    | Source        |
+| Day of Defeat: Source            | Source        |
+| Fortress Forever                 | Source        |
+| Garry's Mod                      | Source        |
+| Half Life 2: Deathmatch          | Source        |
+| Half Life: Deathmatch            | Source        |
+| Homefront                        | Source        |
+| Insurgency Mod                   | Source        |
+| Natural Selection                | Source        |
+| Natural Selection 2              | Source        |
+| Red Orchestra 2                  | Source        |
+| Starbound                        | Source        |
+| Team Fortress 2                  | Source        |
+| Team Fortress Classic            | Source        |
+| Zombie Master                    | Source        |
+| Zombie Panic Source              | Source        |
