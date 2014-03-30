@@ -28,7 +28,7 @@ class ZM extends SourceEngine {
 
 		$count = $this->splitData('byte');
 		$players = array();
-		for($i=1; $i <= $count; $i++) {
+		for ($i=1; $i <= $count; $i++) {
 			$player = array();
 			$player["index"] = $this->splitData('byte');
 			$player["name"] = $this->splitData('string');

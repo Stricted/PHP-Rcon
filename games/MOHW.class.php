@@ -1,5 +1,5 @@
 <?php
-require_once("games/engine/FrostbiteEngine.class.php")
+require_once("games/engine/FrostbiteEngine.class.php");
 
 /**
  * Medal of Honor Warfighter
