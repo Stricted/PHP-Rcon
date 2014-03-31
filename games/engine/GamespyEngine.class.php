@@ -16,12 +16,6 @@ abstract class GamespyEngine extends AbstractEngine {
 	protected $protocol = 'udp';
 	
 	/**
-	 * server data cache (workaround for cod4)
-	 * @var	array
-	 */
-	protected $data = array();
-	
-	/**
 	 * recive data from gameserver
 	 *
 	 * @return	string

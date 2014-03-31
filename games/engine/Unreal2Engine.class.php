@@ -2,13 +2,13 @@
 require_once("games/engine/AbstractEngine.class.php");
 
 /**
- * Quake3
+ * Unreal 2
  *
  * @author      Jan Altensen (Stricted)
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-abstract class Quake3Engine extends AbstractEngine {
+abstract class Unreal2Engine extends AbstractEngine {
 	/**
 	 * protocol
 	 * @var	string
@@ -25,29 +25,27 @@ abstract class Quake3Engine extends AbstractEngine {
 		while (!$this->containsCompletePacket($data)) {
 			$data .= fread($this->socket, 8192);
 		}
-		return explode("\n", $data);
 		
+		return $data;
 	}
-		
+	
 	/**
 	 * get server data
 	 *
 	 * @return	array
 	 */
 	protected function getServerData () {
-		if (empty($this->data2)) {
-			$this->data2 = $this->command("\xFF\xFF\xFF\xFFgetstatus\x00");
-		}
-		$data = $this->data2;
-		$tmp = explode('\\', $data[1]);
-		$ret = array();
-		foreach ($tmp as $i => $v) {
-			if (fmod($i, 2) == 1) {
-				$t = $i + 1;
-				
-				$ret[$v] = $tmp[$t];
-			}
-		}
-		return $ret;
+		$this->data = $this->command("\x79\x00\x00\x00\x00");
+		
+		$server = array();
+		$this->data = substr($this->data, 22);
+		$server['name'] = $this->splitData('string');
+		$server['map'] = $this->splitData('string');
+		$server['game'] = $this->splitData('string');
+		$server['playercount'] = $this->splitData('int32');
+		$server['maxplayers'] = $this->splitData('int32');
+		$server['ping'] = $this->splitData('int32');
+		
+		return $server;
 	}
 }

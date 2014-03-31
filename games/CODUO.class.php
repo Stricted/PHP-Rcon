@@ -15,10 +15,10 @@ class COD extends Quake3Engine {
 	 * @return	array
 	 */
 	public function getPlayers () {
-		if (empty($this->data)) {
-			$this->data = $this->command("\xFF\xFF\xFF\xFFgetstatus\x00");
+		if (empty($this->data2)) {
+			$this->data2 = $this->command("\xFF\xFF\xFF\xFFgetstatus\x00");
 		}
-		$data = $this->data;
+		$data = $this->data2;
 		$players = array();
 		for ($i=2; $i<=count($data); $i++) {
 			if (!empty($data[$i])) {

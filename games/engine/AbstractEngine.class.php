@@ -19,6 +19,18 @@ abstract class AbstractEngine {
 	protected $socket = null;
 	
 	/**
+	 * server data cache
+	 * @var	string
+	 */
+	protected $data = '';
+	
+	/**
+	 * server data cache #2
+	 * @var	array
+	 */
+	protected $data2 = array();
+	
+	/**
 	 * initialize a new instance of this class
 	 *
 	 * @param	string	$server
@@ -127,7 +139,7 @@ abstract class AbstractEngine {
 	abstract public function getServerName();
 	
 	/**
-	 * replace cod4 color codes
+	 * replace color codes
 	 *
 	 * @param	string	$string
 	 * @return	string
@@ -145,5 +157,43 @@ abstract class AbstractEngine {
 		$string = str_replace('^9', '', $string);
 		
 		return $string;
+	}
+	
+	/**
+	 * split package
+	 *
+	 * @param	string	$type
+	 * @return	mixed
+	 */
+	protected function splitData ($type) {
+		if ($type == "byte") {
+			$a = substr($this->data, 0, 1);
+			$this->data = substr($this->data, 1);
+			return ord($a);
+		}
+		else if ($type == "int32") {
+			$a = substr($this->data, 0, 4);
+			$this->data = substr($this->data, 4);
+			$unpacked = unpack('iint', $a);
+			return $unpacked["int"];
+		}
+		else if ($type == "float32") {
+			$a = substr($this->data, 0, 4);
+			$this->data = substr($this->data, 4);
+			$unpacked = unpack('fint', $a);
+			return $unpacked["int"];
+		}
+		else if ($type == "plain") {
+			$a = substr($this->data, 0, 1);
+			$this->data = substr($this->data, 1);
+			return $a;
+		}
+		else if ($type == "string") {
+			$str = '';
+			while(($char = $this->splitData('plain')) != chr(0)) {
+				$str .= $char;
+			}
+			return $str;
+		}
 	}
 }
