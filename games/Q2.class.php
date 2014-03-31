@@ -1,14 +1,14 @@
 <?php
-require_once("games/engine/Quake3Engine.class.php");
+require_once("games/engine/Quake2Engine.class.php");
 
 /**
- * Call of Duty 5: World at War 
+ * Quake 3
  *
  * @author      Jan Altensen (Stricted)
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class COD5 extends Quake3Engine {
+class Q2 extends Quake2Engine {
 	/**
 	 * get players from gameserver
 	 *
@@ -16,8 +16,9 @@ class COD5 extends Quake3Engine {
 	 */
 	public function getPlayers () {
 		if (empty($this->data2)) {
-			$this->data2 = $this->command("\xFF\xFF\xFF\xFFgetstatus\x00");
+			$this->data2 = $this->command("\xFF\xFF\xFF\xFFstatus\x00");
 		}
+
 		$data = $this->data2;
 		$players = array();
 		for ($i=2; $i<=count($data); $i++) {
@@ -42,7 +43,7 @@ class COD5 extends Quake3Engine {
 	 */
 	public function getMaxPlayers () {
 		$data = $this->getServerData();
-		return $data['sv_maxclients'];
+		return $data['maxclients'];
 	}
 	
 	/**
@@ -71,7 +72,7 @@ class COD5 extends Quake3Engine {
 	 */
 	public function getCurrentMode () {
 		$data = $this->getServerData();
-		return $data['g_gametype'];
+		return $data['game'];
 	}
 	
 	/**
@@ -81,6 +82,6 @@ class COD5 extends Quake3Engine {
 	 */
 	public function getServerName () {
 		$data = $this->getServerData();
-		return $this->stripColors($data['sv_hostname']);
+		return $this->stripColors($data['gamename']);
 	}
 }

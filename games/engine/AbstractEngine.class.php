@@ -190,7 +190,7 @@ abstract class AbstractEngine {
 		}
 		else if ($type == "string") {
 			$str = '';
-			while(($char = $this->splitData('plain')) != chr(0)) {
+			while (($char = $this->splitData('plain')) != chr(0)) {
 				$str .= $char;
 			}
 			return $str;

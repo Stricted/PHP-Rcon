@@ -35,10 +35,20 @@ abstract class Quake2Engine extends AbstractEngine {
 	 * @return	array
 	 */
 	protected function getServerData () {
-		if (empty($this->data)) {
-			$this->data = $this->command("\xFF\xFF\xFF\xFFstatus\x00");
+		if (empty($this->data2)) {
+			$this->data2 = $this->command("\xFF\xFF\xFF\xFFstatus\x00");
+		}
+		$data = $this->data2;
+		$tmp = explode('\\', $data[1]);
+		$ret = array();
+		foreach ($tmp as $i => $v) {
+			if (fmod($i, 2) == 1) {
+				$t = $i + 1;
+				
+				$ret[$v] = $tmp[$t];
+			}
 		}
 		
-		// @TODO: parse server data
+		return $ret;
 	}
 }

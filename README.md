@@ -5,6 +5,7 @@
 | Battlefield 4                    | Frostbite     |
 | Medal of Honor                   | Frostbite     |
 | Medal of Honor Warfighter        | Frostbite     |
+| Quake 2                          | Quake2        |
 | Call of Duty                     | Quake3        |
 | Call of Duty 2                   | Quake3        |
 | Call of Duty: United Offensive   | Quake3        |

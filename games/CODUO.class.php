@@ -8,7 +8,7 @@ require_once("games/engine/Quake3Engine.class.php");
  * @copyright   2013-2014 Jan Altensen (Stricted)
  * @license     GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-class COD extends Quake3Engine {
+class CODUO extends Quake3Engine {
 	/**
 	 * get players from gameserver
 	 *

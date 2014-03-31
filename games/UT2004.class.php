@@ -87,6 +87,4 @@ class UT2004 extends Unreal2Engine {
 		
 		return $data['name'];
 	}
-	
-
 }
