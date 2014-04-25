@@ -39,7 +39,7 @@ abstract class Unreal2Engine extends AbstractEngine {
 		$string = preg_replace('~\x5e\\0\x23\\0..~s', '', $string);
 
 		return $string;
-	}}
+	}
 	
 	/**
 	 * get server data
