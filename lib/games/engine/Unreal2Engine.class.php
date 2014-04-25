@@ -30,6 +30,18 @@ abstract class Unreal2Engine extends AbstractEngine {
 	}
 	
 	/**
+	 * strip crap
+	 *
+	 * @param	string	$string
+	 * @return	string
+	 */
+	protected function stripCrap ($string) {
+		$string = preg_replace('~\x5e\\0\x23\\0..~s', '', $string);
+
+		return $string;
+	}}
+	
+	/**
 	 * get server data
 	 *
 	 * @return	array
@@ -39,7 +51,7 @@ abstract class Unreal2Engine extends AbstractEngine {
 		
 		$server = array();
 		$this->data = substr($this->data, 22);
-		$server['name'] = $this->splitData('string');
+		$server['name'] = $this->stripCrap($this->splitData('string'));
 		$server['map'] = $this->splitData('string');
 		$server['game'] = $this->splitData('string');
 		$server['playercount'] = $this->splitData('int32');
